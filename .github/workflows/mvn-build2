@@ -2,24 +2,24 @@ name: Maven Build
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
   pull_request:
-    branches: [main]
+    branches:
+      - main
+
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: backend
-
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -29,8 +29,8 @@ jobs:
       - name: Build Maven Project
         run: mvn clean package
 
-      - name: Upload Artifact
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Maven-Artifact
-          path: backend/target/*.jar
+          path: target/*.jar
