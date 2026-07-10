@@ -1,36 +1,29 @@
+---
 name: Maven Build
-
 on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Checkout Source
-        uses: actions/checkout@v4
-
-      - name: Install Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-          cache: maven
-
-      - name: Build Maven Project
-        run: mvn clean package
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Maven-Artifact
-          path: target/*.jar
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Source
+          uses: actions/checkout@v4
+        - name: Install Java
+          uses: actions/setup-java@v4
+          with:
+            distribution: temurin
+            java-version: "17"
+            cache: maven
+        - name: Build Maven Project
+          run: mvn clean package
+        - name: Upload Build Artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: Maven-Artifact
+            path: target/*.jar
